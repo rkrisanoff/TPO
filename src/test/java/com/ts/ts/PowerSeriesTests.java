@@ -5,25 +5,39 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
-import static org.junit.jupiter.api.Assertions.assertAll;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class PowerSeriesTests {
-    @ParameterizedTest(name = "arctg({0})")
-    @DisplayName("Check Dots")
-    @ValueSource(doubles = {0,1/6d,1/3d,1/2d,2/3d,5/6d,1d})
-    void checkPiDots(double param) {
+    @ParameterizedTest
+    @DisplayName("Check definition area")
+    @ValueSource(doubles = {-1, -0.83d, -0.66d, -0.5d, -0.33d, -0.16d, 0, 0.16d, 0.33d, 0.5d, 0.66d, 0.83d, 1d})
+    void testDefinitionArea(double arg) {
         assertAll(
-                () -> assertEquals(Math.atan(param), PowerSeries.calculateArctg(param, 1000), 0.001d)
+                () -> assertEquals(Math.atan(arg), PowerSeries.calculateArctg(arg, 1000), 0.001d)
         );
     }
 
-    @ParameterizedTest(name = "arctg({0}) = {1}")
-    @DisplayName("Check between dots [-1; 1]")
-    @CsvFileSource(resources = "/arctg.csv", numLinesToSkip = 1, delimiter = ';')
-    void checkBetweenDotsMinusPiAndPi(double x, double y) {
+    @ParameterizedTest
+    @DisplayName("Check oddness")
+    @ValueSource(doubles = {-1, -0.83d, -0.66d, -0.5d, -0.33d, -0.16d, 0, 0.16d, 0.33d, 0.5d, 0.66d, 0.83d, 1d})
+    void testOddness(double arg) {
         assertAll(
-                () -> assertEquals(y, PowerSeries.calculateArctg(x, 10000), 0.001d)
+                () -> assertEquals(
+                        PowerSeries.calculateArctg(arg, 1000),
+                        -PowerSeries.calculateArctg(-arg, 1000),
+                        0.001d)
         );
     }
+
+    @ParameterizedTest
+    @DisplayName("Check monotonicity")
+    @CsvFileSource(resources = "/arctg.csv", numLinesToSkip = 1, delimiter = ';')
+    void testMonotonicity(double arg1, double arg2) {
+        assertAll(
+                () -> assertTrue(
+                        PowerSeries.calculateArctg(arg1, 1000) < PowerSeries.calculateArctg(arg2, 1000))
+
+        );
+    }
+
 }
