@@ -1,8 +1,6 @@
 package com.ts.ts.task2;
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Optional;
+import java.util.stream.IntStream;
 
 public class HashTableOpenAdress<T>{
     private Object[] elementData;
@@ -19,8 +17,19 @@ public class HashTableOpenAdress<T>{
         Arrays.fill(elementData,StatusElement.CLEAR);
     }
 
-    private int findPosition(Object e){
-        return Math.abs(e.hashCode()%elementData.length);
+    private int findPosition(String e){
+        long returnValue=0L;
+        String[] s=e.split("");
+        for (int i=s.length-1;i>=0;i--){
+            long first4bit =(4026531840L&returnValue)>>7*4;
+            returnValue=268435455&returnValue;
+            returnValue=returnValue<<4;
+            first4bit=first4bit<<18;
+            returnValue=returnValue^first4bit;
+            returnValue=returnValue+s[i].hashCode();
+        }
+        returnValue=returnValue%elementData.length;
+        return (int) returnValue;
     }
     private boolean canPutElement(int i){
         if(elementData[i] instanceof StatusElement) {
@@ -84,7 +93,7 @@ public class HashTableOpenAdress<T>{
         return -1;
 
     }
-    private int clearPositionWithElement(Object e){
+    private int clearPositionWithElement(String e){
         int positionForClear=findPositionWithElement(e,findPosition(e));
         if(positionForClear!=-1){
             elementData[positionForClear]=StatusElement.DELETE;
@@ -100,7 +109,7 @@ public class HashTableOpenAdress<T>{
      * @return  Возвращает номмер элемента в массиве, который был очищен, в случае,
      *          если удалить не получилось, возвращает -1
      */
-    public int delete(T e){
+    public int delete(String e){
 
         if(e!=null){
             return clearPositionWithElement(e);
@@ -114,7 +123,7 @@ public class HashTableOpenAdress<T>{
      * @return  Возвращает номмер элемента в массиве, где находится элемент, в случае,
      *          если найти не получилось, возвращает -1
      */
-    public int find(T e){
+    public int find(String e){
         if(e!=null){
             return findPositionWithElement(e,findPosition(e));
         }
@@ -127,7 +136,7 @@ public class HashTableOpenAdress<T>{
      * @return  Возвращает номмер элемента в массиве, куда был вставлен элемент, в случае,
      *          если вставить элемент не получилось, возвращает -1
      */
-    public int insert(T e){
+    public int insert(String e){
         if(e!=null){
             return setPosition(e,findPosition(e));
         }
