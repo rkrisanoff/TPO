@@ -320,7 +320,7 @@ public class Task2Tests {
 
 
     @Test
-    @Tag("SearchAndDelite")
+    @Tag("SearchAndDelete")
     @DisplayName("Полное добавление в таблицу, полный поиск в таблице, полное удаление, полный поиск")
     public void testfullAddToTableFullTableLookupFullDeleteFullLookup(){
         List<Integer> actual = new ArrayList<>();
