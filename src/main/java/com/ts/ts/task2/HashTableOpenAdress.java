@@ -1,6 +1,6 @@
 package com.ts.ts.task2;
+
 import java.util.Arrays;
-import java.util.stream.IntStream;
 
 public class HashTableOpenAdress<T>{
     private Object[] elementData;
@@ -100,18 +100,26 @@ public class HashTableOpenAdress<T>{
         }
         return positionForClear;
 
+
+    }
+    private boolean checkValidValueForInput(String e){
+        if(e!=null){
+            if(e.length()!=0){
+                return true;
+            }
+        }
+        return false;
     }
     //Интерфейсы для взаимодествия
     /**
      * Очищает елемент в массиве, с данным значением
      *
-     * @param e Элемент, котоырй необходимо удалить
+     * @param e Элемент, котоырй необходимо удалить, запрещен NULL и пустая стока
      * @return  Возвращает номмер элемента в массиве, который был очищен, в случае,
      *          если удалить не получилось, возвращает -1
      */
     public int delete(String e){
-
-        if(e!=null){
+        if(checkValidValueForInput(e)){
             return clearPositionWithElement(e);
         }
         return -1;
@@ -119,12 +127,12 @@ public class HashTableOpenAdress<T>{
     /**
      * Ищен данный элемент в массиве
      *
-     * @param e Элемент, котоырй необходимо найти
+     * @param e Элемент, котоырй необходимо найти, запрещен NULL и пустая стока
      * @return  Возвращает номмер элемента в массиве, где находится элемент, в случае,
      *          если найти не получилось, возвращает -1
      */
     public int find(String e){
-        if(e!=null){
+        if(checkValidValueForInput(e)){
             return findPositionWithElement(e,findPosition(e));
         }
         return -1;
@@ -132,12 +140,12 @@ public class HashTableOpenAdress<T>{
     /**
      * Добавляет данный элемент в массив
      *
-     * @param e Элемент, котоырй необходимо добавить
+     * @param e Элемент, котоырй необходимо добавить, запрещен NULL и пустая стока
      * @return  Возвращает номмер элемента в массиве, куда был вставлен элемент, в случае,
      *          если вставить элемент не получилось, возвращает -1
      */
     public int insert(String e){
-        if(e!=null){
+        if(checkValidValueForInput(e)){
             return setPosition(e,findPosition(e));
         }
         return -1;
