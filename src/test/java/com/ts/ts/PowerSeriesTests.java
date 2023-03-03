@@ -10,11 +10,20 @@ import static org.junit.jupiter.api.Assertions.*;
 public class PowerSeriesTests {
     @ParameterizedTest
     @DisplayName("Check definition area")
-    @ValueSource(doubles = {-1, -0.83d, -0.66d, -0.5d, -0.33d, -0.16d, 0, 0.16d, 0.33d, 0.5d, 0.66d, 0.83d, 1d})
+    @ValueSource(doubles = {-1d, -0.83d, -0.66d, -0.5d, -0.33d, -0.16d, 0, 0.16d, 0.33d, 0.5d, 0.66d, 0.83d, 1d})
     void testDefinitionArea(double arg) {
         assertAll(
                 () -> assertEquals(Math.atan(arg), PowerSeries.calculateArctg(arg, 1000), 0.001d)
         );
+    }
+
+    @ParameterizedTest
+    @DisplayName("Check definition area")
+    @ValueSource(doubles = {-Double.MAX_VALUE -2,-1.0001,1.0001,2d,Double.MAX_VALUE})
+    void testDefinitionAreaOut(double arg) {
+        assertThrows(IllegalArgumentException.class,
+                () -> PowerSeries.calculateArctg(arg, 1000));
+
     }
 
     @ParameterizedTest

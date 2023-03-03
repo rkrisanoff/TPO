@@ -5,7 +5,10 @@ import static java.lang.Math.pow;
 
 public class PowerSeries {
     final static double  eps = 0.000001d;
-    public static double calculateArctg(double arg, int n) {
+    public static double calculateArctg(double arg, int n) throws IllegalArgumentException {
+        if (abs(arg) > 1) {
+            throw new IllegalArgumentException("Argument "+arg+" is out of definition are");
+        }
 
         double result = 0;
         double part = 0;
