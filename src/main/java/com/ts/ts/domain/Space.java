@@ -16,12 +16,12 @@ public class Space {
     private final Set<Star> stars = new HashSet<>();
 
     public void addNewAstronaut(Human human) throws Exception{
-        if (this.astronauts.contains(human)) throw new Exception("Этот человек уже летает в космосе!");
+        if (this.astronauts.contains(human)) throw new Exception("This man is already exist!");
         this.astronauts.add(human);
     }
 
     public void addNewStar(Star star) throws Exception {
-        if (this.stars.contains(star)) throw new Exception("Такая звезда уже существует!");
+        if (this.stars.contains(star)) throw new Exception("This star is already exist!");
         this.stars.add(star);
     }
 

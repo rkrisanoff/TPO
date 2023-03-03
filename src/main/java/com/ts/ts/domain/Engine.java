@@ -9,13 +9,13 @@ public class Engine {
 
     // Увеличение уровня шума
     public void increaseSound() throws Exception{
-        if (sound.ordinal() + 1 >= TypeOfVolume.values().length) throw new Exception("Громче двигатель не работает!");
+        if (sound.ordinal() + 1 >= TypeOfVolume.values().length) throw new Exception("Incorrect level of volume");
         this.sound = TypeOfVolume.values()[sound.ordinal() + 1];
     }
 
     // Уменьшение уровня шума
     public void decreaseSound() throws Exception{
-        if (sound.ordinal() - 1 < 0) throw new Exception("Тише двигатель не работает!");
+        if (sound.ordinal() - 1 < 0) throw new Exception("Incorrect level of volume");
         this.sound = TypeOfVolume.values()[sound.ordinal() - 1];
     }
 

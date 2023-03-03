@@ -17,11 +17,11 @@ public class Rocket {
     }
 
     // Совершить полет
-    public void fly(int value) throws Exception {
-        if (value <= 0) throw new Exception("Нельзя пролететь отрицательное расстояние!");
-        if (this.fuel - value < 0) throw new Exception("Топлива не хватит на осуществление полета!");
+    public void fly(int distance) throws Exception {
+        if (distance <= 0) throw new Exception("Wrong distance");
+        if (this.fuel - distance < 0) throw new Exception("The fuel is not enough to fly");
         this.increaseSpeed();
-        this.fuel -= value;
+        this.fuel -= distance;
         this.decreaseSpeed();
     }
 
@@ -39,9 +39,9 @@ public class Rocket {
 
     // Выбросить человека в космос
     public void throwHumanIntoTheSpace(String name, Space space) throws Exception {
-        if (this.team.isEmpty()) throw new Exception("На корабле нет экипажа!");
+        if (this.team.isEmpty()) throw new Exception("There are not a team in spaceship!");
         Human teammate = this.team.stream().filter(new Human(name)::equals).findAny()
-                .orElseThrow(() -> new Exception("Такого человека нет на борту!"));
+                .orElseThrow(() -> new Exception("There is not a man in spaceship!"));
         space.addNewAstronaut(teammate);
         this.team.remove(teammate);
     }

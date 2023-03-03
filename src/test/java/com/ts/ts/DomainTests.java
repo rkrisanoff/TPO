@@ -32,21 +32,21 @@ public class DomainTests {
         @DisplayName("Check a really long flight")
         void checkTooBigValueToFly() {
             Throwable exception = assertThrows(Exception.class, () -> rocket.fly(101));
-            assertEquals("Топлива не хватит на осуществление полета!", exception.getMessage());
+            assertEquals("The fuel is not enough to fly", exception.getMessage());
         }
 
         @Test
         @DisplayName("Check negative value of flight")
         void checkNegativeValueOfFlight() {
             Throwable exception = assertThrows(Exception.class, () -> rocket.fly(-1));
-            assertEquals("Нельзя пролететь отрицательное расстояние!", exception.getMessage());
+            assertEquals("Wrong distance", exception.getMessage());
         }
 
         @Test
         @DisplayName("Check zero value of flight")
         void checkZeroValueOfFlight() {
             Throwable exception = assertThrows(Exception.class, () -> rocket.fly(0));
-            assertEquals("Нельзя пролететь отрицательное расстояние!", exception.getMessage());
+            assertEquals("Wrong distance", exception.getMessage());
         }
 
         @Test
@@ -68,7 +68,7 @@ public class DomainTests {
             );
 
             Throwable exception = assertThrows(Exception.class, () -> rocket.fly(0));
-            assertEquals("Нельзя пролететь отрицательное расстояние!", exception.getMessage());
+            assertEquals("Wrong distance", exception.getMessage());
         }
 
         @Test
@@ -77,14 +77,14 @@ public class DomainTests {
         void checkMaxSpeed() {
             for (int i = 0; i <= 3; i++) rocket.increaseSpeed();
             Throwable exception = assertThrows(Exception.class, () -> rocket.increaseSpeed());
-            assertEquals("Громче двигатель не работает!", exception.getMessage());
+            assertEquals("Incorrect level of volume", exception.getMessage());
         }
 
         @Test
         @DisplayName("Check min value of speed")
         void checkMinSpeed() {
             Throwable exception = assertThrows(Exception.class, () -> rocket.decreaseSpeed());
-            assertEquals("Тише двигатель не работает!", exception.getMessage());
+            assertEquals("Incorrect level of volume", exception.getMessage());
         }
 
         @Test
@@ -113,14 +113,14 @@ public class DomainTests {
             humans = new HashSet<>();
             rocket = new Rocket(humans);
             Throwable exception = assertThrows(Exception.class, () -> rocket.throwHumanIntoTheSpace("Елизавета", space));
-            assertEquals("На корабле нет экипажа!", exception.getMessage());
+            assertEquals("There are not a team in spaceship!", exception.getMessage());
         }
 
         @Test
         @DisplayName("Check no team member")
         void checkNoTeamMember() {
             Throwable exception = assertThrows(Exception.class, () -> rocket.throwHumanIntoTheSpace("Елизавета", space));
-            assertEquals("Такого человека нет на борту!", exception.getMessage());
+            assertEquals("There is not a man in spaceship!", exception.getMessage());
         }
     }
 
@@ -140,7 +140,7 @@ public class DomainTests {
         void checkAddExistAstronaut() {
             space.addNewAstronaut(new Human("Лена"));
             Throwable exception = assertThrows(Exception.class, () -> space.addNewAstronaut(new Human("Лена")));
-            assertEquals("Этот человек уже летает в космосе!", exception.getMessage());
+            assertEquals("This man is already exist!", exception.getMessage());
         }
 
         @Test
@@ -159,7 +159,7 @@ public class DomainTests {
         void checkAddExistStar()  {
             space.addNewStar(new Star(Color.BLUE));
             Throwable exception = assertThrows(Exception.class, () -> space.addNewStar(new Star(Color.BLUE)));
-            assertEquals("Такая звезда уже существует!", exception.getMessage());
+            assertEquals("This star is already exist!", exception.getMessage());
         }
     }
 
