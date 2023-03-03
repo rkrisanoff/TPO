@@ -2,7 +2,7 @@ package com.ts.ts.task2;
 
 import java.util.Arrays;
 
-public class HashTableOpenAdress<T>{
+public class HashTableOpenAdress{
     private Object[] elementData;
     private static final int DEFAULT_CAPACITY=16;
 
@@ -16,6 +16,7 @@ public class HashTableOpenAdress<T>{
         elementData=new Object[capacity];
         Arrays.fill(elementData,StatusElement.CLEAR);
     }
+
 
     private int findPosition(String e){
         long returnValue=0L;
@@ -32,11 +33,7 @@ public class HashTableOpenAdress<T>{
         return (int) returnValue;
     }
     private boolean canPutElement(int i){
-        if(elementData[i] instanceof StatusElement) {
-                return true;
-        }else {
-            return false;
-        }
+        return elementData[i] instanceof StatusElement;
     }
     private int findClearPosition(int position){
         for(int i=position;i<elementData.length;i++){
@@ -102,13 +99,8 @@ public class HashTableOpenAdress<T>{
 
 
     }
-    private boolean checkValidValueForInput(String e){
-        if(e!=null){
-            if(e.length()!=0){
-                return true;
-            }
-        }
-        return false;
+    private boolean checkValidString(String e){
+        return e!=null && e.length()!=0;
     }
     //Интерфейсы для взаимодествия
     /**
@@ -119,7 +111,7 @@ public class HashTableOpenAdress<T>{
      *          если удалить не получилось, возвращает -1
      */
     public int delete(String e){
-        if(checkValidValueForInput(e)){
+        if(checkValidString(e)){
             return clearPositionWithElement(e);
         }
         return -1;
@@ -132,7 +124,7 @@ public class HashTableOpenAdress<T>{
      *          если найти не получилось, возвращает -1
      */
     public int find(String e){
-        if(checkValidValueForInput(e)){
+        if(checkValidString(e)){
             return findPositionWithElement(e,findPosition(e));
         }
         return -1;
@@ -145,7 +137,7 @@ public class HashTableOpenAdress<T>{
      *          если вставить элемент не получилось, возвращает -1
      */
     public int insert(String e){
-        if(checkValidValueForInput(e)){
+        if(checkValidString(e)){
             return setPosition(e,findPosition(e));
         }
         return -1;

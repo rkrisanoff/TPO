@@ -66,60 +66,30 @@ public class Task2Tests {
     }
     @Test
     @Tag("InsertionCheck")
-    @DisplayName("Проверка вставкиодинаковых значений")
+    @DisplayName("Проверка вставки одинаковых  значений")
     public void testСheckingForInsertionOfIdenticalValues(){
         List<Integer> actual = new ArrayList<>();
         List<Integer> expected = new ArrayList<>();
-        actual.add(20);
-        actual.add(21);
-        actual.add(22);
-        actual.add(23);
-        actual.add(24);
-        actual.add(25);
-        actual.add(26);
-        actual.add(27);
-        actual.add(28);
-        expected.add(hashTableOpenAdress.insert("1"));
-        expected.add(hashTableOpenAdress.insert("1"));
-        expected.add(hashTableOpenAdress.insert("1"));
-        expected.add(hashTableOpenAdress.insert("1"));
-        expected.add(hashTableOpenAdress.insert("1"));
-        expected.add(hashTableOpenAdress.insert("1"));
-        expected.add(hashTableOpenAdress.insert("1"));
-        expected.add(hashTableOpenAdress.insert("1"));
-        expected.add(hashTableOpenAdress.insert("1"));
+        for(int i=20;i<=28;i++){
+            actual.add(i);
+            expected.add(hashTableOpenAdress.insert("1"));
+        }
         Assertions.assertEquals(expected, actual);
     }
     @Test
     @Tag("InsertionCheck")
-    @DisplayName("Проверка вставкиобьектов с одним HashCode с переходом в начало")
+    @DisplayName("Проверка вставки объектов с одним HashCode с переходом в начало")
     public void testСheckingTheInsertionOfObjectsWithOneHashCodeWithTheTransitionToTheBeginning(){
         List<Integer> actual = new ArrayList<>();
         List<Integer> expected = new ArrayList<>();
-        actual.add(20);
-        actual.add(21);
-        actual.add(22);
-        actual.add(23);
-        actual.add(24);
-        actual.add(25);
-        actual.add(26);
-        actual.add(27);
-        actual.add(28);
-        actual.add(0);
-        actual.add(1);
-        actual.add(2);
-        expected.add(hashTableOpenAdress.insert("3dwq"));
-        expected.add(hashTableOpenAdress.insert("1"));
-        expected.add(hashTableOpenAdress.insert("3dwq"));
-        expected.add(hashTableOpenAdress.insert("1"));
-        expected.add(hashTableOpenAdress.insert("3dwq"));
-        expected.add(hashTableOpenAdress.insert("1"));
-        expected.add(hashTableOpenAdress.insert("3dwq"));
-        expected.add(hashTableOpenAdress.insert("1"));
-        expected.add(hashTableOpenAdress.insert("3dwq"));
-        expected.add(hashTableOpenAdress.insert("1"));
-        expected.add(hashTableOpenAdress.insert("3dwq"));
-        expected.add(hashTableOpenAdress.insert("1"));
+        for(int i=20;i<=31;i++){
+            actual.add(i%29);
+            if(i%2==0){
+                expected.add(hashTableOpenAdress.insert("3dwq"));
+            }else{
+                expected.add(hashTableOpenAdress.insert("1"));
+            }
+        }
         Assertions.assertEquals(expected, actual);
     }
     @Test
@@ -165,7 +135,7 @@ public class Task2Tests {
     }
     @Test
     @Tag("DeletionCheck")
-    @DisplayName("Проверка вставкипустой строки")
+    @DisplayName("Проверка удаления пустой строки")
     public void testDellCLearString(){
         int result=hashTableOpenAdress.delete("");
         Assertions.assertEquals(result, -1);
@@ -188,30 +158,17 @@ public class Task2Tests {
     }
     @Test
     @Tag("DeletionCheck")
-    @DisplayName("Удаление не существубщего обьекта")
+    @DisplayName("Удаление не существующего обьекта")
     public void testDeletingNonExistentObject(){
-        hashTableOpenAdress.insert("asdajksdjk");
-        hashTableOpenAdress.insert("123312");
-        hashTableOpenAdress.insert("123sd21312");
-        hashTableOpenAdress.insert("asd");
-        hashTableOpenAdress.insert("asd2");
-        hashTableOpenAdress.insert("sadsad");
-        hashTableOpenAdress.insert("123asd");
-        hashTableOpenAdress.insert("asd21312edsa");
-        hashTableOpenAdress.insert("asd12312fgas");
-        hashTableOpenAdress.insert("sss");
-        hashTableOpenAdress.insert("sssawss");
-        hashTableOpenAdress.insert("sd");
-        hashTableOpenAdress.insert("asdwq");
-        hashTableOpenAdress.insert("sdqw2edas");
-        hashTableOpenAdress.insert("asd");
-        hashTableOpenAdress.insert("asd21");
+        for(int i=0;i<=12;i++){
+            hashTableOpenAdress.insert("asdajksdjk-"+i*23);
+        }
         int expected=hashTableOpenAdress.delete("1");
         Assertions.assertEquals(expected, -1);
     }
     @Test
     @Tag("DeletionCheck")
-    @DisplayName("Уделение несуществующего обьекту, полностью заполненой таблицы")
+    @DisplayName("Уделение несуществующего обьекта, полностью заполненой таблицы")
     public void testAllocatingANonExistentObjectACompletelyFilledTable(){
         for(int i=0; i<29;i++){
             hashTableOpenAdress.insert(String.valueOf(i));
@@ -284,7 +241,6 @@ public class Task2Tests {
     @Tag("SearchValidation")
     @DisplayName("Проверка поиска удаленного значения")
     public void testRemoteValueLookup(){
-        int actual= -1;
         hashTableOpenAdress.insert("3");
         hashTableOpenAdress.insert("1");
         hashTableOpenAdress.insert("2");
@@ -292,30 +248,28 @@ public class Task2Tests {
         hashTableOpenAdress.insert("5");
         hashTableOpenAdress.delete("3");
         int expected=hashTableOpenAdress.find("3");
-        Assertions.assertEquals(expected, actual);
+        Assertions.assertEquals(expected, -1);
     }
     @Test
     @Tag("SearchValidation")
     @DisplayName("Проверка поиска несуществующего значения в полной таблице")
     public void testValidationOfSearchingForANonExistentValueInTheFullTable(){
-        int actual= -1;
         for (int i=0;i<29;i++){
-            hashTableOpenAdress.insert(String.valueOf(i)+"test");
+            hashTableOpenAdress.insert(i+"test");
         }
         int expected=hashTableOpenAdress.find("asdasd");
-        Assertions.assertEquals(expected, actual);
+        Assertions.assertEquals(expected, -1);
     }
 
     @Test
     @Tag("SearchValidation")
     @DisplayName("Проверка поиска значения в полной таблице")
     public void testValidationOfSearchingForExistentValueInTheFullTable(){
-        int actual= 1;
         for (int i=0;i<29;i++){
             hashTableOpenAdress.insert(i+"test");
         }
         int expected=hashTableOpenAdress.find("1test");
-        Assertions.assertEquals(expected, actual);
+        Assertions.assertEquals(expected, 1);
     }
 
 
