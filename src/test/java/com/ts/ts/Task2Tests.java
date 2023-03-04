@@ -417,6 +417,28 @@ public class Task2Tests {
         int numberCell=hashTableOpenAdress.delete("sd");
         Assertions.assertTrue(hashTableOpenAdress.canPutElement(numberCell));
     }
+    @Test
+    @Tag("findClearPosition")
+    @DisplayName("Проверка поиск пустой ячейки, в пустой таблице ")
+    public void testFindClearPositionEmpryTable(){
+        Assertions.assertEquals(hashTableOpenAdress.findClearPosition(2),2);
+    }
+    @Test
+    @Tag("findClearPosition")
+    @DisplayName("Проверка поиск пустой ячейки, в полностью заполненой ")
+    public void testFindClearPositionFullTable(){
+        for (int i=0;i<29;i++){
+            hashTableOpenAdress.insert(i+"test");
+        }
+        Assertions.assertEquals(hashTableOpenAdress.findClearPosition(2),-1);
+    }
+    @Test
+    @Tag("findClearPosition")
+    @DisplayName("Проверка поиск пустой ячейки, ячейка первичной записи занята")
+    public void testFindClearPositionNonEmptyFirstCell(){
+        int NumberCell=hashTableOpenAdress.insert("sd");
+        Assertions.assertEquals(hashTableOpenAdress.findClearPosition(NumberCell),NumberCell+1);
+    }
 
 
 }

@@ -43,7 +43,7 @@ public class HashTableOpenAdress{
     public boolean canPutElement(int i){
         return elementData[i] instanceof StatusElement;
     }
-    private int findClearPosition(int position){
+    public int findClearPosition(int position){
         for(int i=position;i<elementData.length;i++){
             if(canPutElement(i)){
                 return i;
