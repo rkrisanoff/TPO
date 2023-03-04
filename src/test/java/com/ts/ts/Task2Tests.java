@@ -359,6 +359,13 @@ public class Task2Tests {
     }
     @Test
     @Tag("hashToPlace")
+    @DisplayName("Проверка хеш равен количеству мест")
+    public void testHashToPlace(){
+        long expected=hashTableOpenAdress.findHash("24125");
+        Assertions.assertEquals(expected, 3691634);
+    }
+    @Test
+    @Tag("hashToPlace")
     @DisplayName("Проверка хеш раынй 0 ")
     public void testHashToPlace(){
         long expected=hashTableOpenAdress.findHash("24125");
