@@ -34,7 +34,7 @@ public class HashTableOpenAdress{
         return (int) Math.abs(i%elementData.length);
     }
 
-    private int findPosition(String e){
+    public int findPosition(String e){
         return hashToPlace(findHash(e));
     }
     private boolean canPutElement(int i){

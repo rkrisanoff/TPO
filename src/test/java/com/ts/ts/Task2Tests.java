@@ -346,23 +346,29 @@ public class Task2Tests {
     @Test
     @Tag("hashToPlace")
     @DisplayName("Проверка хеш больше количества мест")
-    public void testHashToPlace(){
-        long expected=hashTableOpenAdress.findHash("24125");
-        Assertions.assertEquals(expected, 3691634);
+    public void testHashToPlaceHashMorePlaces(){
+        long hash=900;
+        int acual= (int) (hash%29);
+        int expected=hashTableOpenAdress.hashToPlace(hash);
+        Assertions.assertEquals(expected, acual);
     }
     @Test
     @Tag("hashToPlace")
     @DisplayName("Проверка хеш меньше количества мест")
-    public void testHashToPlace(){
-        long expected=hashTableOpenAdress.findHash("24125");
-        Assertions.assertEquals(expected, 3691634);
+    public void testHashToPlaceHashLessThanNumberOfPlaces(){
+        long hash=15;
+        int acual= (int) (hash%29);
+        int expected=hashTableOpenAdress.hashToPlace(hash);
+        Assertions.assertEquals(expected, acual);
     }
     @Test
     @Tag("hashToPlace")
     @DisplayName("Проверка хеш равен количеству мест")
-    public void testHashToPlace(){
-        long expected=hashTableOpenAdress.findHash("24125");
-        Assertions.assertEquals(expected, 3691634);
+    public void testHashToPlaceHashEqualNumberPlaces(){
+        long hash=29;
+        int acual= (int) (hash%29);
+        int expected=hashTableOpenAdress.hashToPlace(hash);
+        Assertions.assertEquals(expected, acual);
     }
     @Test
     @Tag("hashToPlace")
@@ -372,5 +378,25 @@ public class Task2Tests {
         Assertions.assertEquals(expected, 3691634);
     }
 
+    @Test
+    @Tag("findPosition")
+    @DisplayName("Проверка строка 5 элементов")
+    public void testFindPositionInputLenght5(){
+        Assertions.assertEquals(hashTableOpenAdress.findPosition("swtfs"), 3691634);
+    }
+    @Test
+    @Tag("findPosition")
+    @DisplayName("Проверка строка 10 элементов")
+    public void testFindPositionInputLenght10(){
+        long expected=hashTableOpenAdress.findHash("24125");
+        Assertions.assertEquals(hashTableOpenAdress.findPosition("swtfdwadgs"), 3691634);
+    }
+    @Test
+    @Tag("findPosition")
+    @DisplayName("Проверка строка 0 элементов")
+    public void testFindPositionInputLenght0(){
+        long expected=hashTableOpenAdress.findHash("24125");
+        Assertions.assertEquals(expected, 3691634);
+    }
 
 }
