@@ -56,7 +56,7 @@ public class HashTableOpenAdress{
         }
         return -1;
     }
-    private int setPosition(Object e, int position){
+    public int setPosition(Object e, int position){
         int positionForSet=findClearPosition(position);
         if(positionForSet!=-1){
             elementData[positionForSet]=e;
@@ -65,9 +65,9 @@ public class HashTableOpenAdress{
     }
 
 
-    private boolean checkPositionOnClear(int position){
+    public boolean checkPositionOnClear(int position){
         try {
-            if(StatusElement.valueOf(elementData[position].toString())==StatusElement.CLEAR){
+            if(StatusElement.valueOf(elementData[position].toString()).equals(StatusElement.CLEAR)){
                 return true;
             }
             return false;

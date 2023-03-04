@@ -440,5 +440,30 @@ public class Task2Tests {
         Assertions.assertEquals(hashTableOpenAdress.findClearPosition(NumberCell),NumberCell+1);
     }
 
+    @Test
+    @Tag("setPosition")
+    @DisplayName("Проверка вставка элемента в таблицу")
+    public void testSetPosition(){
+        hashTableOpenAdress.setPosition("asd",2);
+        Assertions.assertEquals(hashTableOpenAdress.find("asd"),2);
+    }
+
+
+    @Test
+    @Tag("checkPositionOnClear")
+    @DisplayName("Проверка занятой ячейки")
+    public void testcheckPositionOnClearCellNonEmpty(){
+        int numberCell=hashTableOpenAdress.insert("asd");
+        Assertions.assertFalse(hashTableOpenAdress.checkPositionOnClear(numberCell));
+    }
+    @Test
+    @Tag("checkPositionOnClear")
+    @DisplayName("Проверка очищенной ячейки")
+    public void testcheckPositionOnClearDeleteValueCell(){
+        hashTableOpenAdress.insert("asd");
+        int numberCell=hashTableOpenAdress.delete("asd");
+        Assertions.assertFalse(hashTableOpenAdress.checkPositionOnClear(numberCell));
+    }
+
 
 }
