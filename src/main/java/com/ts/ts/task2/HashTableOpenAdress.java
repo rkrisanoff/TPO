@@ -18,6 +18,9 @@ public class HashTableOpenAdress{
     }
 
     public long findHash(String e){
+        if (e == null || e.length() == 0 ){
+            throw new IllegalArgumentException("Illegal argument. The string must be not null and has non-zero length");
+        }
         long returnValue=0L;
         String[] s=e.split("");
         for (int i=s.length-1;i>=0;i--){
@@ -37,7 +40,7 @@ public class HashTableOpenAdress{
     public int findPosition(String e){
         return hashToPlace(findHash(e));
     }
-    private boolean canPutElement(int i){
+    public boolean canPutElement(int i){
         return elementData[i] instanceof StatusElement;
     }
     private int findClearPosition(int position){

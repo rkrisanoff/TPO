@@ -317,13 +317,6 @@ public class Task2Tests {
     }
     @Test
     @Tag("findHash")
-    @DisplayName("Проверка на строку в 0 элемент")
-    public void testFindHashInputLength0(){
-        long expected=hashTableOpenAdress.findHash("");
-        Assertions.assertEquals(expected, 0);
-    }
-    @Test
-    @Tag("findHash")
     @DisplayName("Проверка на строку в 20 элемент")
     public void testFindHashInputLength20(){
         long expected=hashTableOpenAdress.findHash("awedwsderwswqasderfg");
@@ -331,10 +324,19 @@ public class Task2Tests {
     }
     @Test
     @Tag("findHash")
-    @DisplayName("Проверка на строку 0 элементов")
-    public void testFindHashInputLength20(){
-        long expected=hashTableOpenAdress.findHash("awedwsderwswqasderfg");
-        Assertions.assertEquals(expected, 3971067089l);
+    @DisplayName("Проверка на строку в 0 элемент")
+    public void testFindHashInputLength0(){
+        Assertions.assertThrows(IllegalArgumentException.class,
+                () -> hashTableOpenAdress.findHash(""));
+
+    }
+    @Test
+    @Tag("findHash")
+    @DisplayName("Проверка на строку null элемент")
+    public void testFindHashInputNull(){
+        Assertions.assertThrows(IllegalArgumentException.class,
+                () -> hashTableOpenAdress.findHash(null));
+
     }
     @Test
     @Tag("findHash")
@@ -370,26 +372,20 @@ public class Task2Tests {
         int expected=hashTableOpenAdress.hashToPlace(hash);
         Assertions.assertEquals(expected, acual);
     }
-    @Test
-    @Tag("hashToPlace")
-    @DisplayName("Проверка хеш раынй 0 ")
-    public void testHashToPlace(){
-        long expected=hashTableOpenAdress.findHash("24125");
-        Assertions.assertEquals(expected, 3691634);
-    }
+
 
     @Test
     @Tag("findPosition")
     @DisplayName("Проверка строка 5 элементов")
     public void testFindPositionInputLenght5(){
-        Assertions.assertEquals(hashTableOpenAdress.findPosition("swtfs"), 3691634);
+        Assertions.assertEquals(hashTableOpenAdress.findPosition("swtfs"), 11);
     }
     @Test
     @Tag("findPosition")
     @DisplayName("Проверка строка 10 элементов")
     public void testFindPositionInputLenght10(){
         long expected=hashTableOpenAdress.findHash("24125");
-        Assertions.assertEquals(hashTableOpenAdress.findPosition("swtfdwadgs"), 3691634);
+        Assertions.assertEquals(hashTableOpenAdress.findPosition("swtfdwadgs"), 17);
     }
     @Test
     @Tag("findPosition")
@@ -398,5 +394,29 @@ public class Task2Tests {
         long expected=hashTableOpenAdress.findHash("24125");
         Assertions.assertEquals(expected, 3691634);
     }
+
+    @Test
+    @Tag("canPutElement")
+    @DisplayName("Проверка изнаачально пустой ячейки")
+    public void testCanPutElementEpmtyCell(){
+        Assertions.assertTrue(hashTableOpenAdress.canPutElement(2));
+    }
+
+    @Test
+    @Tag("canPutElement")
+    @DisplayName("Проверка занятой ячейки")
+    public void testCanPutElementFiledCell(){
+        int numberCell=hashTableOpenAdress.insert("sd");
+        Assertions.assertFalse(hashTableOpenAdress.canPutElement(numberCell));
+    }
+    @Test
+    @Tag("canPutElement")
+    @DisplayName("Проверка очищенной ячейки")
+    public void testCanPutElement(){
+        hashTableOpenAdress.insert("sd");
+        int numberCell=hashTableOpenAdress.delete("sd");
+        Assertions.assertTrue(hashTableOpenAdress.canPutElement(numberCell));
+    }
+
 
 }
