@@ -17,7 +17,7 @@ public class HashTableOpenAdress{
         Arrays.fill(elementData,StatusElement.CLEAR);
     }
 
-    private long findHash(String e){
+    public long findHash(String e){
         long returnValue=0L;
         String[] s=e.split("");
         for (int i=s.length-1;i>=0;i--){
@@ -30,7 +30,7 @@ public class HashTableOpenAdress{
         }
         return returnValue;
     }
-    private int hashToPlace(long i){
+    public int hashToPlace(long i){
         return (int) Math.abs(i%elementData.length);
     }
 
