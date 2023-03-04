@@ -19,11 +19,12 @@ public class PowerSeriesTests {
 
     @ParameterizedTest
     @DisplayName("Check definition area")
-    @ValueSource(doubles = {-Double.MAX_VALUE, -2,-1.0001,1.0001,2d,Double.MAX_VALUE})
+    @ValueSource(doubles = {-Double.MAX_VALUE, -2, -1.0001, 1.0001, 2d, Double.MAX_VALUE})
     void testDefinitionAreaOut(double arg) {
-        assertThrows(IllegalArgumentException.class,
-                () -> PowerSeries.calculateArctg(arg, 1000));
-
+        assertAll(
+                () -> assertThrows(IllegalArgumentException.class,
+                        () -> PowerSeries.calculateArctg(arg, 1000))
+        );
     }
 
     @ParameterizedTest
