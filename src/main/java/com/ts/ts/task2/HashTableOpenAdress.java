@@ -17,8 +17,7 @@ public class HashTableOpenAdress{
         Arrays.fill(elementData,StatusElement.CLEAR);
     }
 
-
-    private int findPosition(String e){
+    private long findHash(String e){
         long returnValue=0L;
         String[] s=e.split("");
         for (int i=s.length-1;i>=0;i--){
@@ -29,8 +28,14 @@ public class HashTableOpenAdress{
             returnValue=returnValue^first4bit;
             returnValue=returnValue+s[i].hashCode();
         }
-        returnValue=returnValue%elementData.length;
-        return (int) returnValue;
+        return returnValue;
+    }
+    private int hashToPlace(long i){
+        return (int) Math.abs(i%elementData.length);
+    }
+
+    private int findPosition(String e){
+        return hashToPlace(findHash(e));
     }
     private boolean canPutElement(int i){
         return elementData[i] instanceof StatusElement;
@@ -91,7 +96,7 @@ public class HashTableOpenAdress{
 
     }
     private int clearPositionWithElement(String e){
-        int positionForClear=findPositionWithElement(e,findPosition(e));
+        int positionForClear=findPositionWithElement(e, findPosition(e));
         if(positionForClear!=-1){
             elementData[positionForClear]=StatusElement.DELETE;
         }
@@ -125,7 +130,7 @@ public class HashTableOpenAdress{
      */
     public int find(String e){
         if(checkValidString(e)){
-            return findPositionWithElement(e,findPosition(e));
+            return findPositionWithElement(e, findPosition(e));
         }
         return -1;
     }
@@ -138,7 +143,7 @@ public class HashTableOpenAdress{
      */
     public int insert(String e){
         if(checkValidString(e)){
-            return setPosition(e,findPosition(e));
+            return setPosition(e, findPosition(e));
         }
         return -1;
 
